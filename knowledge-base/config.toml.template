@@ -1,0 +1,27 @@
+# このテンプレートを config.toml にコピーして、自分の環境に合わせて設定する。
+# config.toml は個人環境の設定値（実値）を含むため .gitignore でリポジトリから除外している。
+
+knowledge_root = "/path/to/your/knowledge"
+
+# index_markdown.py の走査ルート（Markdown 索引の対象）。未設定ならホームディレクトリ
+# index_root = "/path/to/your/home"
+
+# xxhsum --filelist へ渡す一時ファイル（index_markdown / generate_summary 共用）。未設定ならシステム一時ディレクトリ
+# xxh_filelist = "/path/to/tmp/xxh_filelist.txt"
+
+# LLM 接続設定（generate_summary.py / create_pattern.py が使用）。
+# adapter: openai_compatible（OpenAI 互換 API 直呼び）| opencode_cli（opencode run 経由）
+# 未設定のキーはアダプタ既定値。CLI オプション（--adapter / --base-url / --model / --timeout）が config.toml より優先。
+[llm]
+adapter = "openai_compatible"
+base_url = "http://127.0.0.1:8080/v1"
+timeout = 120
+# model は実行環境依存のため未設定（アダプタ既定）。設定する場合:
+# - openai_compatible: qwen3.8-flash-next-iq2_xs のようなモデル名
+# - opencode_cli: provider/model 形式（例: strata-sleev/qwen3.8-flash-next-iq2_xs）
+# model = "qwen3.8-flash-next-iq2_xs"
+# リクエストヘッダ（openai_compatible のみ）。指定分はアダプタ既定ヘッダ（Content-Type）にマージされ、同名キーは上書き。
+# Sleev → Strata 中継を使う場合の例（sleev-base-url は上流 OpenAI 互換サーバの base_url）:
+# [llm.headers]
+# sleev-harness = "opencode"
+# sleev-base-url = "http://127.0.0.1:8080/v1"

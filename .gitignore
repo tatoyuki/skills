@@ -4,3 +4,8 @@
 __pycache__/
 *.pyc
 .DS_Store
+check_before_push.sh
+HUMAN_ONLY_push.sh
+
+# 個人環境の設定値（実値）を含むため除外。テンプレートの config.toml.template を公開する
+config.toml
